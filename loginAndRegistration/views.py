@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import LoginForm
+from .forms import RegistrationForm
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -13,3 +15,14 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = RegistrationForm()
+    return render(request, 'register.html', {'form': form})
