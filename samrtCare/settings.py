@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*$r^c$g4-*85e2=9_e9!)k2+&(6t)vkvmi17f&-&8%q7#x3dxc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -78,12 +78,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'smartcare',
         'USER': 'root',
-        'PASSWORD': 'nour_root',
+        'PASSWORD': 'smartcare',
         'HOST': 'db',
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

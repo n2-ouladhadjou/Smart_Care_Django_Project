@@ -35,7 +35,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: smartcare
             MYSQL_DATABASE: smartcare
-            MYSQL_PASSWORD: nour_root
+            MYSQL_PASSWORD: smartcare
         # Restart policy
         restart: unless-stopped
         # Volume mapping
