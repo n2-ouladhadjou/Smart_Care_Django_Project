@@ -47,7 +47,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'smartcare',
         'USER': 'root',
-        'PASSWORD': 'care_root',
+        'PASSWORD': 'smartcare',
         'HOST': 'db',
         'PORT': '3306',
     }
