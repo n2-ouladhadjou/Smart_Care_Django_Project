@@ -1,0 +1,1 @@
+# Smart_Care_Django_Project
