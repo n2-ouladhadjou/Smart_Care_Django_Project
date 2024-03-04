@@ -7,10 +7,9 @@ Welcome to the Smart Care Django Project! This project aims to...
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
-
+- [Docker Setup](#Docker-Setup)
+- [MySQL Configuration](#MySQL-Configuration)
+  
 ## Getting Started
 
 ### Prerequisites
