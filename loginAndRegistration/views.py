@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm
+
 
 
 def login_view(request):
@@ -20,3 +20,6 @@ def login_view(request):
 
     return render(request, 'login.html')
 
+
+def register(request):
+    return render(request, 'registration.html')
