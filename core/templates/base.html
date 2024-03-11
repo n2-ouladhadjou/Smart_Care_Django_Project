@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Smart Care{% endblock %}</title>
+</head>
+
+<body>
+  <main>
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">Smart Care</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li>    <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+              </form></li>
+          </ul>
+        </div>
+      </nav>
+    {% else %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">Smart Care</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><button onclick="location.href='{% url 'login' %}'">Login</button></li>
+          </ul>
+        </div>
+      </nav>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+
+</html>
