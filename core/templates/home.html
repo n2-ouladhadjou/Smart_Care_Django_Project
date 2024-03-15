@@ -22,5 +22,7 @@
     <button onclick="location.href='{% url 'register' %}'">Register</button>
     {% endif %}
 </body>
+{{ redirect_to_login_immediately }}
 {% endblock %}
+
 </html>

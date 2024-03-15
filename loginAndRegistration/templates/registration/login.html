@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
+
 <body>
     <h2>Login</h2>
     <form method="post" action="{% url 'login' %}">
@@ -25,6 +26,7 @@
         <br>
         
         <input type="submit" value="Login">
+        <br>
         <p> New User? <button onclick="location.href='{% url 'register' %}'">Register</button></p>
         
     </form>

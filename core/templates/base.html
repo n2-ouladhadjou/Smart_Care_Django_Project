@@ -36,10 +36,14 @@
         </div>
       </nav>
     {% endif %}
-
+{% for message in messages %}
+    <div class="message {{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
     {% block content %}
     {% endblock %}
   </main>
 </body>
-
+{{ redirect_to_login_immediately }}
 </html>
