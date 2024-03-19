@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'loginAndRegistration',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'samrtCare.urls'
@@ -62,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_auto_logout.context_processors.auto_logout_client',
             ],
         },
     },
@@ -124,3 +128,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#redirects
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+# session timeout
+# 5 minutes for inactivity
+# 60 min session time
+from datetime import timedelta
+AUTO_LOGOUT = {'IDLE_TIME': 300,'SESSION_TIME': timedelta(minutes=60), 'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
+               'MESSAGE': 'The session has expired. Please login again to continue.',
+               }

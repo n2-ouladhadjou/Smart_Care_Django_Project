@@ -3,3 +3,5 @@ Django==5.0.2
 mysqlclient==2.2.4
 sqlparse==0.4.4
 typing_extensions==4.10.0
+django-auto-logout
+pytz
