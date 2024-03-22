@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'core',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # default
+    'dashboards.backends.AdminBackend',  # custom backend
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
