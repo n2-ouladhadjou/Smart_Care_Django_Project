@@ -2,9 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manage Invoices</title>
 </head>
 <body>
-
+    <h1>Manage Invoices</h1>
+    <table>
+        <tr>
+            <th>Appointment</th>
+            <th>Billing Time</th>
+            <th>Amount</th>
+            <th>Payment Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for invoice in invoices %}
+        <tr>
+            <td>{{ invoice.appointment }}</td>
+            <td>{{ invoice.billing_datetime }}</td>
+            <td>{{ invoice.amount }}</td>
+            <td>{{ invoice.payment_status }}</td>
+            <td>
+                <a href="{% url 'edit_invoice' invoice.id %}">Edit</a> |
+                <a href="{% url 'delete_invoice' invoice.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Update Invoice Information</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Invoice</button>
+    </form>
 </body>
 </html>

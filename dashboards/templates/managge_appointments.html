@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manage Appointments</title>
 </head>
 <body>
+    <h1>Manage Appointments</h1>
+    <table>
+        <tr>
+            <th>Doctor</th>
+            <th>Nurse</th>
+            <th>Patient</th>
+            <th>Appointment Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>{% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.doctor }}</td>
+            <td>{{ appointment.nurse }}</td>
+            <td>{{ appointment.patient }}</td>
+            <td>{{ appointment.appointment_datetime }}</td>
+            <td>{{ appointment.status }}</td>
+            <td>
+                <a href="{% url 'edit_appointment' appointment.id %}">Edit</a> |
+                <a href="{% url 'delete_appointment' appointment.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
+    <h2>Update Appointment Information</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Appointment</button>
+    </form>
 </body>
 </html>

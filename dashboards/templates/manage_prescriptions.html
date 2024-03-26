@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manage Prescriptions</title>
 </head>
 <body>
+    <h1>Manage Prescriptions</h1>
 
+    <table>
+        <tr>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>Issue Time</th>
+            <th>Medication Details</th>
+            <th>Actions</th>
+        </tr>
+        {% for prescription in prescriptions %}
+        <tr>
+            <td>{{ prescription.doctor }}</td>
+            <td>{{ prescription.patient }}</td>
+            <td>{{ prescription.issue_datetime }}</td>
+            <td>{{ prescription.medication_details }}</td>
+            <td>
+                <a href="{% url 'edit_prescription' prescription.id %}">Edit</a> |
+                <a href="{% url 'delete_prescription' prescription.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Update Prescription Information</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Prescription</button>
+    </form>
 </body>
 </html>
