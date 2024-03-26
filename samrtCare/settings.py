@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'loginAndRegistration',
     'core',
+    'dashboards',
 ]
 
 AUTHENTICATION_BACKENDS = [
