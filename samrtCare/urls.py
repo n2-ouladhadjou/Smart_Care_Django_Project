@@ -17,8 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core import views as core_views
+from dashboards.views import ManageUsersView, ManageAppointmentsView, ManagePrescriptionsView, ManageInvoicesView, \
+    AdminView
+
 from loginAndRegistration import views as auth_views
 from django.urls import include, path
+
+
 
 urlpatterns = [
     path('', core_views.home, name='home'),
@@ -26,5 +31,10 @@ urlpatterns = [
     path('login/', auth_views.login_view, name='login'),
     path('register/', auth_views.register, name='register'),
     #path('', include("django.contrib.auth.urls"))
-    path("/", include("django.contrib.auth.urls")), 
+    path("/", include("django.contrib.auth.urls")),
+    path('manage-users/', ManageUsersView.as_view(), name='manage_users'),
+    path('manage-appointments/', ManageAppointmentsView.as_view(), name='manage_appointments'),
+    path('manage-prescriptions/', ManagePrescriptionsView.as_view(), name='manage_prescriptions'),
+    path('manage-invoices/', ManageInvoicesView.as_view(), name='manage_invoices'),
+    path('user-admin/', AdminView.as_view(), name='admin'),
 ]
