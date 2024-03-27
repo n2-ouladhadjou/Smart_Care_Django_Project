@@ -20,7 +20,7 @@ class Prescription(models.Model):
 
 
 class Invoice(models.Model):
-    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     billing_datetime = models.DateTimeField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_status = models.CharField(max_length=255)

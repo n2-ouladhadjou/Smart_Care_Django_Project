@@ -5,6 +5,12 @@
     <title>Manage Appointments</title>
 </head>
 <body>
+<div class="navbar">
+    <a href="/manage-appointments">Manage Appointments</a>
+    <a href="/manage-users">Manage Users</a>
+    <a href="/manage-prescriptions">Manage Prescriptions</a>
+    <a href="/manage-invoices">Manage Invoices</a>
+</div>
     <h1>Manage Appointments</h1>
     <table>
         <tr>
@@ -14,7 +20,8 @@
             <th>Appointment Time</th>
             <th>Status</th>
             <th>Actions</th>
-        </tr>{% for appointment in appointments %}
+        </tr>
+        {% for appointment in appointments %}
         <tr>
             <td>{{ appointment.doctor }}</td>
             <td>{{ appointment.nurse }}</td>
@@ -28,12 +35,5 @@
         </tr>
         {% endfor %}
     </table>
-
-    <h2>Update Appointment Information</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update Appointment</button>
-    </form>
 </body>
 </html>

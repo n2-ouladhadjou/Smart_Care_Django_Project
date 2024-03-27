@@ -5,6 +5,11 @@
     <title>Manage Prescriptions</title>
 </head>
 <body>
+<div class="navbar">
+    <a href="/manage-users">Manage Users</a>
+    <a href="/manage-appointments">Manage Appointments</a>
+    <a href="/manage-invoices">Manage Invoices</a>
+</div>
     <h1>Manage Prescriptions</h1>
 
     <table>
@@ -28,12 +33,5 @@
         </tr>
         {% endfor %}
     </table>
-
-    <h2>Update Prescription Information</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update Prescription</button>
-    </form>
 </body>
 </html>

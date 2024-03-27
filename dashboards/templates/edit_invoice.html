@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <div class="navbar">
+        <a href="/manage-users">Manage Users</a>
+        <a href="/manage-prescriptions">Manage Prescriptions</a>
+        <a href="/manage-invoices">Manage Invoices</a>
+    </div>
+    <title>Edit Invoice</title>
+</head>
+<body>
+<h1>Edit Invoice</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+</form>
+</body>
+</html>
