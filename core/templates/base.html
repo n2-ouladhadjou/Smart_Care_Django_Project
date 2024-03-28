@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        .alert-container {
+            text-align: center; 
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: white;
+            display: inline-block;
+        }
+
+        .error {
+            background-color: red;
+        }
+
+        .success {
+            background-color: green;
+        }
+
+        /* Animation for fading out messages */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .fadeOut {
+            animation: fadeOut 2s ease-in-out forwards;
+        }
+    </style>
+</head>
+
+<body>
+<main>
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Smart Care</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Log Out</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% else %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Smart Care</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><button onclick="location.href='{% url 'login' %}'">Login</button></li>
+            </ul>
+        </div>
+    </nav>
+    {% endif %}
+    
+    <!-- Display Messages -->
+    <div class="alert-container">
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <!-- ---------------- -->
+
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- Remove the message after 2 secs -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                alert.classList.add('fadeOut');
+                setTimeout(function() {
+                    alert.remove();
+                }, 2000);
+            }, 2000);
+        });
+    });
+</script>
+<!-- -------------------------------- -->
+
+{{ redirect_to_login_immediately }}
+</body>
+</html>
