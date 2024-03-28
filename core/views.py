@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.shortcuts import render
@@ -17,7 +17,7 @@ def home(request):
     if(user.groups.filter(name='Nurse').exists()):
         return render(request, 'nurseDashboard.html')
     if(user.groups.filter(name='Admin').exists()):
-        return render(request, 'adminDashboard.html')
+        return redirect('admin')
     
     # default view for no user set, could be changed to patient?
     return render(request, 'home.html')
