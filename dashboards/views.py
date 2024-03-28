@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
+from datetime import datetime
 
 from dashboards.forms import AppointmentForm, PrescriptionForm, InvoiceForm
 from dashboards.models import Appointment, Prescription, Invoice
@@ -52,11 +54,23 @@ def get(request, *args, **kwargs):
 
 class ManageAppointmentsView(UserPassesTestMixin, View):
     def test_func(self):
-        return self.request.user.groups.filter(name='admin').exists()
+        ## change this to decorator function?
+        ## or use built in permission system with the permissions applied to the group
+        if(self.request.user.groups.filter(name='admin').exists()):
+            return self.request.user.groups.filter(name='admin').exists()
+        else:
+            return self.request.user.groups.filter(name='doctor').exists()
 
     def get(self, request, *args, **kwargs):
-        appointments = Appointment.objects.all()
-        return render(request, 'manage_appointments.html', {'appointments': appointments})
+        if(self.request.user.groups.filter(name='admin').exists()):
+            appointments = Appointment.objects.all()
+            return render(request, 'manage_appointments.html', {'appointments': appointments})
+        else:
+            ## user is doctor
+            current_user = request.user
+            current_date = timezone.now().date()
+            appointments = Appointment.objects.filter(doctor__user=current_user, appointment_datetime__date=current_date)
+            return render(request, 'manage_appointments.html', {'appointments': appointments})            
 
 
 def delete_appointment(request, appointment_id):
@@ -79,11 +93,20 @@ def edit_appointment(request, appointment_id):
 
 class ManagePrescriptionsView(UserPassesTestMixin, View):
     def test_func(self):
-        return self.request.user.groups.filter(name='admin').exists()
+        if(self.request.user.groups.filter(name='admin').exists()):
+            return self.request.user.groups.filter(name='admin').exists()
+        else:
+            return self.request.user.groups.filter(name='doctor').exists()
 
     def get(self, request, *args, **kwargs):
-        prescription = Prescription.objects.all()
-        return render(request, 'manage_prescriptions.html', {'prescriptions': prescription})
+        if(self.request.user.groups.filter(name='admin').exists()):
+            prescription = Prescription.objects.all()
+            return render(request, 'manage_prescriptions.html', {'prescriptions': prescription})
+        else:
+            ## user is doctor
+            current_user = request.user
+            prescription = Prescription.objects.filter(doctor__user=current_user)
+            return render(request, 'manage_prescriptions.html', {'prescriptions': prescription})              
 
 
 def edit_prescription(request, prescription_id):

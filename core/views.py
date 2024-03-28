@@ -13,11 +13,13 @@ def home(request):
     if(user.groups.filter(name='Patient').exists()):
         return render(request, 'patientDashboard.html')
     if(user.groups.filter(name='Doctor').exists()):
-        return render(request, 'doctorDashboard.html')   
+        return render(request, 'doctor.html')
+        #return render(request, 'doctorDashboard.html')   
     if(user.groups.filter(name='Nurse').exists()):
         return render(request, 'nurseDashboard.html')
     if(user.groups.filter(name='Admin').exists()):
-        return render(request, 'adminDashboard.html')
+        return render(request, 'admin.html')
+        #return render(request, 'adminDashboard.html')
     
     # default view for no user set, could be changed to patient?
     return render(request, 'home.html')
