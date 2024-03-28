@@ -1,12 +1,11 @@
 ## Smart Care Django Project
 
-Welcome to the Smart Care Django Project! This project aims to...
+Welcome to the Smart Care Django Project! This project aims to create a django project for a GP business recruiting 1 full-time and 1-part-time doctors and 1 part-time nurse.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
 - [Docker Setup](#Docker-Setup)
 - [MySQL Configuration](#MySQL-Configuration)
   
@@ -32,7 +31,21 @@ Before you begin, ensure you have met the following requirements:
 ````docker-compose up --build````
 This will set up the Django application and MySQL database.
 
-4. Access the application at ````http://localhost:8000````
+5. Access the application at ````http://localhost:8000````
+
+### other usefull commands:
+#### Remove the containers and images
+````docker-compose down````\
+````docker system prune -a````
+
+#### to run to container 
+````docker-compose run SmartCare````
+
+#### to enter to container 
+````docker-compose exec SmartCare /bin/bash````\
+````ls```` to see the container folders.
+#### to get out of the container
+````exit````
 
 ## Docker Setup
 This project utilizes Docker for containerization. The Dockerfile is included for building the Django application, and Docker Compose is used to manage multi-container Docker applications.
@@ -53,3 +66,6 @@ DATABASES = {
     }
 }
 ````
+
+# License
+This project is licensed under the GLOBAL LICENSE - see the [LICENSE](https://www.gov.uk/guidance/global-project-licence) file for details.
