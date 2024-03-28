@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Appointments</title>
+</head>
+<body>
+<div class="navbar">
+    <a href="/manage-appointments">Manage Appointments</a>
+    <a href="/manage-users">Manage Users</a>
+    <a href="/manage-prescriptions">Manage Prescriptions</a>
+    <a href="/manage-invoices">Manage Invoices</a>
+</div>
+    <h1>Manage Appointments</h1>
+    <table>
+        <tr>
+            <th>Doctor</th>
+            <th>Nurse</th>
+            <th>Patient</th>
+            <th>Appointment Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.doctor }}</td>
+            <td>{{ appointment.nurse }}</td>
+            <td>{{ appointment.patient }}</td>
+            <td>{{ appointment.appointment_datetime }}</td>
+            <td>{{ appointment.status }}</td>
+            <td>
+                <a href="{% url 'edit_appointment' appointment.id %}">Edit</a> |
+                <a href="{% url 'delete_appointment' appointment.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
