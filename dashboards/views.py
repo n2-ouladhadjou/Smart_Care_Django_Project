@@ -152,3 +152,33 @@ def delete_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     invoice.delete()
     return redirect('manage_invoices')
+
+def patient_dashboard(request):
+    # Retrieve the logged-in user
+    user = request.user
+    
+    # Retrieve upcoming appointments for the patient
+    appointments = Appointment.objects.filter(patient=user.patient_profile)
+    
+    # Pass the user and appointments to the template
+    context = {
+        'user': user,
+        'appointments': appointments,
+    }
+    
+    return render(request, 'patient.html', context)
+
+def book_appointment(request):
+    form = AppointmentForm(initial={'patient': request.user.patient_profile})
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or patient dashboard
+            return redirect('patient_dashboard')
+    return render(request, 'book_appointment.html', {'form': form})
+
+def view_prescriptions(request):
+    # Retrieve prescriptions for the logged-in patient
+    prescriptions = Prescription.objects.filter(patient=request.user.patient_profile)
+    return render(request, 'prescriptions.html', {'prescriptions': prescriptions})
