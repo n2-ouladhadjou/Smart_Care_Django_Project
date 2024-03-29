@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescriptions</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block title %}Prescriptions{% endblock %}
+    
+    {% block content %}
+    <h1>Prescriptions</h1>
+    <div>
+        <!-- Display prescriptions for the user -->
+        {% for prescription in prescriptions %}
+        <p>Prescription from {{ prescription.doctor }} issued on {{ prescription.issue_datetime }}:</p>
+        <p>{{ prescription.medication_details }}</p>
+        <button onclick="requestRepeat('{{ prescription.id }}')">Request Repeat</button>
+        <hr>
+        {% endfor %}
+    </div>
+    
+    <script>
+        function requestRepeat(prescriptionId) {
+            // Implement your logic to handle repeat prescription request
+            console.log('Repeat prescription requested for ID:', prescriptionId);
+        }
+    </script>
+    {% endblock %}
+</body>
+</html>
