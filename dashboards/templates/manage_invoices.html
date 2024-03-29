@@ -1,15 +1,12 @@
 <!DOCTYPE html>
+{% extends "base_dashboard.html" %}
+{% block content %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Manage Invoices</title>
 </head>
 <body>
-<div class="navbar">
-    <a href="/manage-users">Manage Users</a>
-    <a href="/manage-appointments">Manage Appointments</a>
-    <a href="/manage-prescriptions">Manage Prescriptions</a>
-</div>
     <h1>Manage Invoices</h1>
     <table>
         <tr>
@@ -33,4 +30,5 @@
         {% endfor %}
     </table>
 </body>
+{% endblock %}
 </html>
