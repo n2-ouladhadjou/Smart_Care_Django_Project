@@ -20,7 +20,7 @@ from core                 import views as core_views
 from dashboards.views     import ManageUsersView, ManageAppointmentsView, ManagePrescriptionsView, ManageInvoicesView, \
                                  AdminView, nurse_home, update_appointment_status
 from loginAndRegistration import views as auth_views
-from django.urls          import include, path
+from django.urls          import include, path 
 
 urlpatterns = [
     path('', core_views.home, name='home'),

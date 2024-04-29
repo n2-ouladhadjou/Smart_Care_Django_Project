@@ -16,7 +16,10 @@ def update_appointment_status(request, pk):
     appointment = get_object_or_404(Appointment, pk=pk)
     if request.method == 'POST':
         if request.POST.get('status') == 'completed':
-            appointment.status = 'completed'
+            appointment.status = 'Completed'
+            appointment.save()
+        elif request.POST.get('status') == 'canceled':
+            appointment.status = 'Canceled'
             appointment.save()
     return redirect('nurse_home')
 

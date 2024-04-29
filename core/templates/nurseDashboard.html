@@ -8,9 +8,7 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-    
     <h1 class="text-center">Nurse Dashboard</h1>
-    
     <h2>All Appointments</h2>
     <table class="table table-striped">
         <!--  Heade of table-->
@@ -21,7 +19,8 @@
                 <th>Nurse</th>
                 <th>Start Time</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Complet</th>
+                <th>Cancel</th>
                 <th></th>
             </tr>
         </thead>
@@ -50,7 +49,16 @@
                                 <button type="submit" class="btn btn-primary btn-sm">Mark as Completed</button>
                             </form>
                         {% else %}
-                            Completed
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if appointment.status == 'pending' %}
+                            <form method="post" action="{% url 'update_appointment_status' appointment.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="canceled">
+                                <button type="submit" class="btn btn-primary btn-sm">Mark as Cancel</button>
+                            </form>
+                        {% else %}
                         {% endif %}
                     </td>
                 </tr>
