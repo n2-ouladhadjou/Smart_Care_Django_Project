@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from datetime import datetime
 
-from dashboards.forms import AppointmentForm, PrescriptionForm, InvoiceForm
+from dashboards.forms import AppointmentForm, PrescriptionForm, InvoiceForm, CustomUserChangeForm
 from dashboards.models import Appointment, Prescription, Invoice
 
 
@@ -32,12 +32,12 @@ class ManageUsersView(UserPassesTestMixin, View):
 def edit_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=user)
+        form = CustomUserChangeForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             return redirect('manage_users')
     else:
-        form = UserChangeForm(instance=user)
+        form = CustomUserChangeForm(instance=user)
     return render(request, 'edit_user.html', {'form': form})
 
 
