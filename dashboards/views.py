@@ -6,10 +6,12 @@ from django.urls import reverse
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from datetime import datetime
+from datetime import datetime, timedelta
+from django.http import JsonResponse
 
 from dashboards.forms import AppointmentForm, PrescriptionForm, InvoiceForm
 from dashboards.models import Appointment, Prescription, Invoice
+from loginAndRegistration.models import Patient
 
 
 class AdminView(UserPassesTestMixin, View):
@@ -69,7 +71,7 @@ class ManageAppointmentsView(UserPassesTestMixin, View):
             ## user is doctor
             current_user = request.user
             current_date = timezone.now().date()
-            appointments = Appointment.objects.filter(doctor__user=current_user, appointment_datetime__date=current_date)
+            appointments = Appointment.objects.filter(doctor__user=current_user, appointment_date=current_date)
             return render(request, 'manage_appointments.html', {'appointments': appointments})            
 
 
@@ -153,32 +155,53 @@ def delete_invoice(request, invoice_id):
     invoice.delete()
     return redirect('manage_invoices')
 
+
+
+
+
+
+
+
+
+
+#Patient Stuff
+
 def patient_dashboard(request):
-    # Retrieve the logged-in user
-    user = request.user
-    
-    # Retrieve upcoming appointments for the patient
-    appointments = Appointment.objects.filter(patient=user.patient_profile)
-    
-    # Pass the user and appointments to the template
+    # Retrieve patient information based on the current user
+    patient = Patient.objects.get(user=request.user)
     context = {
-        'user': user,
-        'appointments': appointments,
+        'patient': patient
     }
-    
-    return render(request, 'patient.html', context)
+    return render(request, 'patient_dashboard.html', context)
+
+###def book_appointment(request):
+
+       ## today = datetime.now().date()
+       # current_week = [today + timedelta(days=day) for day in range(0, 7)]
+       # next_week = [today + timedelta(days=7+day) for day in range(0, 7)]
+       # range_slots = ['{}:00 - {}:00'.format(slot, slot + 1) for slot in range(9, 17)]
+        #context = {
+       #     'current_week': current_week,
+       #     'next_week': next_week,
+       #     'range_slots': range_slots,
+       # }
+       # return render(request, 'book_appointment.html', context)
 
 def book_appointment(request):
-    form = AppointmentForm(initial={'patient': request.user.patient_profile})
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            form.save()
-            # Redirect to a success page or patient dashboard
-            return redirect('patient_dashboard')
+            appointment = form.save(commit=False)
+            appointment.user = request.user
+            appointment.save()
+            return redirect('home')  # Redirect to the homepage or any other page
+    else:
+        form = AppointmentForm()
     return render(request, 'book_appointment.html', {'form': form})
 
 def view_prescriptions(request):
     # Retrieve prescriptions for the logged-in patient
-    prescriptions = Prescription.objects.filter(patient=request.user.patient_profile)
-    return render(request, 'prescriptions.html', {'prescriptions': prescriptions})
+    prescriptions = Prescription.objects.filter(patient=request.user.patient)
+    return render(request, 'view_prescriptions.html', {'prescriptions': prescriptions})
+
+

@@ -1,0 +1,30 @@
+<!-- patient_dashboard.html -->
+{% extends 'base_dashboard.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Dashboard</title>
+</head>
+<body>
+
+
+    <h1>Welcome, {{ patient.name }}!</h1>
+    <p>If any of the following details are incorrect, please contact the GP asap!</p>
+    <ul>
+        <li>Title: {{ patient.title }}</li>
+        <li>Name: {{ patient.name }}</li>
+        <li>Address: {{ patient.address }}</li>
+        <li>Status: {{ patient.patienttype }}</li>
+        <li>DOB: {{ patient.dob }}</li>
+        <li>Contact Info: {{ patient.contact_info }}</li>
+        
+    </ul>
+
+
+
+</body>
+</html>
+
+{% endblock %}

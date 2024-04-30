@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base_dashboard.html' %}
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
     {% if user.is_authenticated %}
 
     <p>User is signed in</p>
-    <p> hello {{ user.username }} </p>
+    <p> Hello {{ user.username }} </p>
     
     {% else %}
     <button onclick="location.href='{% url 'login' %}'">Login</button>

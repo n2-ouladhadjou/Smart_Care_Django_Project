@@ -6,7 +6,9 @@ from dashboards.models import Prescription
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ['doctor', 'nurse', 'patient', 'appointment_datetime', 'status']
+        fields = ['patient', 'doctor', 'nurse', 'appointment_date','appointment_time' 'status']
+
+        
 
 
 class PrescriptionForm(forms.ModelForm):
@@ -19,3 +21,8 @@ class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = ['patient', 'billing_datetime', 'amount', 'payment_status']
+
+
+##class AppointmentForm(forms.Form):
+  #  time_choices = [(f"{hour}:00", f"{hour}:00 - {hour+1}:00") for hour in range(9, 17)]
+   # time = forms.ChoiceField(choices=time_choices)

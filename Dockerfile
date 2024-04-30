@@ -14,10 +14,14 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /smartCareApp
 
 # Install the reiquirements
-COPY  requirements.txt ./
+COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 COPY . .
 
+COPY smartcare-entrypoint.sh /smartcare-entrypoint.sh
+
 # Expose Port
 EXPOSE 8000
+
+ENTRYPOINT ["./smartcare-entrypoint.sh"]

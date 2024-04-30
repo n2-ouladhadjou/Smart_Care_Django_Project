@@ -1,14 +1,16 @@
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import date,time, datetime, timedelta
 
 from loginAndRegistration.models import Doctor, Nurse, Patient
 
 
 class Appointment(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     nurse = models.ForeignKey(Nurse, on_delete=models.CASCADE)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    appointment_datetime = models.DateTimeField()
+    appointment_date = models.DateField(blank=True, null=True)
+    appointment_time = models.TimeField(blank=True,null=True)
     status = models.CharField(max_length=255)
 
 
