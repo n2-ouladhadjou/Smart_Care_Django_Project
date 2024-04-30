@@ -174,30 +174,18 @@ def patient_dashboard(request):
     }
     return render(request, 'patient_dashboard.html', context)
 
-###def book_appointment(request):
-
-       ## today = datetime.now().date()
-       # current_week = [today + timedelta(days=day) for day in range(0, 7)]
-       # next_week = [today + timedelta(days=7+day) for day in range(0, 7)]
-       # range_slots = ['{}:00 - {}:00'.format(slot, slot + 1) for slot in range(9, 17)]
-        #context = {
-       #     'current_week': current_week,
-       #     'next_week': next_week,
-       #     'range_slots': range_slots,
-       # }
-       # return render(request, 'book_appointment.html', context)
-
 def book_appointment(request):
-    if request.method == 'POST':
-        form = AppointmentForm(request.POST)
-        if form.is_valid():
-            appointment = form.save(commit=False)
-            appointment.user = request.user
-            appointment.save()
-            return redirect('home')  # Redirect to the homepage or any other page
-    else:
-        form = AppointmentForm()
-    return render(request, 'book_appointment.html', {'form': form})
+
+    today = datetime.now().date()
+    current_week = [today + timedelta(days=day) for day in range(0, 7)]
+    next_week = [today + timedelta(days=7+day) for day in range(0, 7)]
+    range_slots = ['{}:00 - {}:00'.format(slot, slot + 1) for slot in range(9, 17)]
+    context = {
+            'current_week': current_week,
+            'next_week': next_week,
+            'range_slots': range_slots,
+        }
+    return render(request, 'book_appointment.html', context)
 
 def view_prescriptions(request):
     # Retrieve prescriptions for the logged-in patient

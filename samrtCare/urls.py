@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from core import views as core_views
 from dashboards.views import ManageUsersView, ManageAppointmentsView, ManagePrescriptionsView, ManageInvoicesView, \
-    AdminView, view_prescriptions, book_appointment, patient_dashboard, delete_user, edit_appointment, delete_appointment, edit_prescription, delete_prescription, get_existing_appointments
+    AdminView, view_prescriptions, book_appointment, patient_dashboard, delete_user, edit_appointment, delete_appointment, edit_prescription, delete_prescription
 from dashboards import views as dashboard_views  # import dashboards views
 
 
@@ -48,5 +48,4 @@ urlpatterns = [
     path('delete-invoice/<int:invoice_id>/', dashboard_views.delete_invoice, name='delete_invoice'),
     path('patient-dashboard/', patient_dashboard, name='patient_dashboard'),
     path('book-appointment/', book_appointment, name='book_appointment'),
-    path('get-existing-appointments/', get_existing_appointments, name='get_existing_appointments'),
 ]

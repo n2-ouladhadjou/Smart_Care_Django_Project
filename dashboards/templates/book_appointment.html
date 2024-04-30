@@ -146,22 +146,6 @@
     </div>
 
     <script>
-
-        fetch("{% url 'get_existing_appointments' %}")
-        .then(response => response.json())
-        .then(data => {
-            // Iterate through each existing appointment
-            data.forEach(appointment => {
-                // Find the corresponding timeslot
-                var timeslot = document.querySelector(`.slot[data-day="${appointment.day}"][data-time="${appointment.time}"]`);
-                // Grey out the timeslot if found
-                if (timeslot) {
-                    timeslot.classList.add('booked');
-                }
-            });
-        })
-        .catch(error => console.error('Error fetching existing appointments:', error));
-
         var isNurseView = true;
     
         function selectSlot(element) {
