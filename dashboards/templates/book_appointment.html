@@ -183,47 +183,6 @@
             }
         }
     
-        function handleSubmit() {
-            var selectedSlot = document.querySelector('.slot.selected');
-            if (selectedSlot) {
-                var day = selectedSlot.dataset.day;
-                var time = selectedSlot.dataset.time;
-                var role = isNurseView ? 'Nurse' : 'Doctor';
-                var patientId = document.querySelector('input[name="patient"]').value;
-    
-                // AJAX request
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', "{% url 'book_appointment' %}", true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        alert("Appointment booked successfully!");
-                        // Reset the form or redirect the user if needed
-                    } else {
-                        alert('Failed to book appointment. Please try again later.');
-                    }
-                };
-                xhr.onerror = function() {
-                    alert('Failed to book appointment. Please try again later.');
-                };
-                xhr.send(JSON.stringify({ day: day, time: time, role: role, patient_id: patientId }));
-            } else {
-                alert("Please select a slot before booking.");
-            }
-        }
-    
-        var slots = document.querySelectorAll('.slot');
-        slots.forEach(function(slot) {
-            slot.addEventListener('click', function() {
-                selectSlot(this);
-            });
-        });
-    
-        var form = document.getElementById("appointmentForm");
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
-            handleSubmit();
-        });
     </script>
 </body>
 </html>
