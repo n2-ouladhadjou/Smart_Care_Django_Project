@@ -8,8 +8,8 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-    <h1 class="text-center">Nurse Dashboard</h1>
-    <h2>All Appointments</h2>
+    <h1 class="text-center">{{ user.username }} Dashboard</h1>
+    <h3>All Appointments</h3>
     <table class="table table-striped">
         <!--  Heade of table-->
         <thead>
