@@ -48,6 +48,7 @@ urlpatterns = [
 
     # Patient
     path('book_appointment/', book_appointment, name='book_appointment'),
+
     path('patient_home/', core_views.patient_home, name='patient_home'),
     path('delete_appointment/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
     path('update_appointment/<int:appointment_id>/', update_appointment, name='update_appointment'),
@@ -69,5 +70,4 @@ urlpatterns = [
          name='update_doctor_appointment'),
     path('reject_nurse_appointment/<int:appointment_id>/', core_views.reject_doctor_appointment,
          name='reject_appointment'),
-
 ]

@@ -30,7 +30,6 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -81,9 +80,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'samrtCare.wsgi.application'
 
 
-# Database
+# MySql Database 
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

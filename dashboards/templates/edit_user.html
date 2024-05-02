@@ -15,6 +15,18 @@
     {{ form.as_p }}
     <button type="submit">Save changes</button>
 </form>
+<h3>Current Group</h3>
+<table>
+    <tr>
+        <th>Group Name</th>
+    </tr>
+    {% for group in form.instance.groups.all %}
+    <tr>
+        <td>{{ group.name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
 </body>
 {% endblock %}
 </html>

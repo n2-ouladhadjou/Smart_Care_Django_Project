@@ -9,7 +9,7 @@ from dashboards.forms import AppointmentForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
-
+# verify the Login process of the user
 def login_view(request):
     if request.method == 'POST':
 
@@ -20,16 +20,20 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            if Doctor.objects.filter(user=user).exists():
+            if Admin.objects.filter(user=user).exists():
+                return redirect('admin')
+            elif Doctor.objects.filter(user=user).exists():
                 return redirect('doctor_home')
             elif Nurse.objects.filter(user=user).exists():
+                messages.success(request, "Login Successful to Nurse Dashboard") # display message 
                 return redirect('nurse_home')
             elif Patient.objects.filter(user=user).exists():
                 return redirect('patient_home')
             else:
                 return redirect('home')
         else:
-            return render(request, 'login.html', {'error_message': 'Invalid login credentials'})
+            # if the User is not valid stay in login page and show the msg Invalid login credentials
+            messages.error(request, "Invalid login credentials")
 
     return render(request, 'login.html')
 

@@ -1,8 +1,5 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-# Create your views here.
+from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render
-
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone

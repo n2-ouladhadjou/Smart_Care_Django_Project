@@ -13,6 +13,26 @@ from dashboards.models import Appointment, Prescription, Invoice
 from django.contrib.auth.decorators import login_required
 
 
+
+# Function to display the oppontments in nurse dashboard
+@login_required
+def nurse_home(request):
+    return render(request, 'nurseDashboard.html',  {'appointments' : Appointment.objects.all()})
+
+# Function to update the oppontments status in nurse dashboard and save it in database
+@login_required
+def update_appointment_status(request, pk):
+    appointment = get_object_or_404(Appointment, pk=pk)
+    if request.method == 'POST':
+        if request.POST.get('status') == 'completed':
+            appointment.status = 'Completed'
+            appointment.save()
+        elif request.POST.get('status') == 'canceled':
+            appointment.status = 'Canceled'
+            appointment.save()
+    return redirect('nurse_home')
+
+
 class AdminView(UserPassesTestMixin, View):
     def test_func(self):
         return self.request.user.groups.filter(name='admin').exists()
@@ -33,12 +53,12 @@ class ManageUsersView(UserPassesTestMixin, View):
 def edit_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=user)
+        form = CustomUserChangeForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             return redirect('manage_users')
     else:
-        form = UserChangeForm(instance=user)
+        form = CustomUserChangeForm(instance=user)
     return render(request, 'edit_user.html', {'form': form})
 
 

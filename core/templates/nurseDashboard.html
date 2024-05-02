@@ -1,24 +1,87 @@
-{% extends 'base_dashboard.html' %}
 {% block content %}
 <!DOCTYPE html>
 <html>
+
+<!-- Head of HTML -->
 <head>
-    <title>Home</title>
+    <title>Nurse Dashboard</title>
 </head>
+
+<!-- Body of Nurse dashboard -->
 <body>
-    <h1>Nurse Dashboard</h1>
-
     {% if user.is_authenticated %}
+    <h1 class="text-center">{{ user.username }} Dashboard</h1> <!-- exp: nurse_1 Dashboard -->
+    <h3>All Appointments</h3>
+    <table class="table table-striped">
+        <!--  Heade of table-->
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Nurse</th>
+                <th>Start Time</th>
+                <th>Status</th>
+                <th>Complet</th>
+                <th>Cancel</th>
+                <th></th>
+            </tr>
+        </thead>
 
-    <p>User is signed in</p>
-    <p> hello {{ user.username }} </p>
-    
+        <!--  Get the data from the database to the table-->
+        <tbody>
+            {% for appointment in appointments %}
+                <tr>
+                    <!-- Display the oppointments data in the table -->
+                    <td>{{ appointment.patient.user.get_full_name }}</td>
+                    <td>{{ appointment.doctor.user.get_full_name }}</td>
+                    <td>{{ appointment.nurse.user.get_full_name }}</td>
+                    <td>{{ appointment.appointment_datetime }}</td>
+                    <td>
+
+                        <span class="badge {% if appointment.status == 'pending' %} badge-info{% else %}badge-success{% endif %}">
+                        {{ appointment.status }}
+                        </span>
+                    </td>
+                    
+                    <!-- Update the stattus of the oppontement -->
+                    <td>
+                        {% if appointment.status == 'pending' %}
+                            <form method="post" action="{% url 'update_appointment_status' appointment.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="completed">
+                                <button type="submit" class="btn btn-primary btn-sm">Mark as Completed</button>
+                            </form>
+                        {% else %}
+                            <!-- if the status is canceled or completed dont dislay mark as complete-->
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if appointment.status == 'pending' %}
+                            <form method="post" action="{% url 'update_appointment_status' appointment.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="canceled">
+                                <button type="submit" class="btn btn-primary btn-sm">Mark as Cancel</button>
+                            </form>
+                        {% else %}
+                            <!-- if the status is canceled or completed dont dislay mark as cancel-->
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <!-- if there is no oppontements show this massege -->
+                    <td colspan="6" class="text-center">No appointments scheduled for today.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     {% else %}
-    <button onclick="location.href='{% url 'login' %}'">Login</button>
-    <button onclick="location.href='{% url 'register' %}'">Register</button>
+        <button onclick="location.href='{% url 'login' %}'">Login</button>
+        <button onclick="location.href='{% url 'register' %}'">Register</button>
     {% endif %}
 </body>
+</html>
+
 {{ redirect_to_login_immediately }}
 {% endblock %}
-
-</html>

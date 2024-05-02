@@ -1,52 +1,61 @@
+version: '3.9'
+
 services:
-    # "SmartCare" service
+    # SmartCare service
     SmartCare:
         # Name of the image to be built
         image: smartcare
+
+        # container name 
+        container_name: smartcare_container
+
         # Build the image from the Dockerfile in the current directory
         build:
-            # Dockerfile is in the current directory
             context: .
-            # Name of the Dockerfile
             dockerfile: Dockerfile
         # Restart policy
         restart: unless-stopped
-        # Port mapping
+
+        # Port connect django to docker
         ports:
             - "8000:8000"
+
         # Volume mapping
         volumes:
             - .:/smartCareApp
+
         # Service dependencies
         depends_on:
             - db
+
         # Runtime command
         entrypoint: ["tail", "-f", "/dev/null"]
         #entrypoint: [ "./smartcare-entrypoint.sh" ]
 
-    # "db" service
+    # db service
     db:
         # Name of the image to be pulled from Docker Hub.
         image: mysql:latest
+        container_name: db_container
+
         # Port mapping
-        # This means that the port 3306 of the host will be mapped to the port 3306 of the container.
         ports:
             - "3306:3306"
-        # Environment variables
+
+        # database variables
         environment:
             MYSQL_ROOT_PASSWORD: smartcare
             MYSQL_DATABASE: smartcare
             MYSQL_PASSWORD: smartcare
+
         # Restart policy
         restart: unless-stopped
+
         # Volume mapping
-        # This means that the volume named "db_data" will be mapped to the directory "/var/lib/mysql" of the container.
-        # The volume "db_data" will be created if it does not exist.
         volumes:
             - db_data:/var/lib/mysql
 
 # Volumes
 volumes:
-    # "db_data" volume definition
+    # db_data volume definition
     db_data:
-
