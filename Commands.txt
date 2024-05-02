@@ -1,0 +1,14 @@
+# Remove the containers and images
+docker-compose down
+docker system prune -a
+
+# to build the project
+docker-compose up -d --build
+
+# to run to container 
+docker-compose run SmartCare
+
+# to enter to container 
+docker-compose exec SmartCare /bin/bash 
+# to exit
+exit 

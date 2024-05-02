@@ -1,6 +1,6 @@
 ## Smart Care Django Project
 
-Welcome to the Smart Care Django Project! This project aims to...
+Welcome to the Smart Care Django Project! This project aims to create a django project for a GP business recruiting 1 full-time and 1-part-time doctors and 1 part-time nurse.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
