@@ -64,7 +64,6 @@
                     <a class="navbar-brand" href="/">Smart Care</a>
                   </div>
                   <ul class="nav navbar-nav">
-                    <li><form action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-light">Log Out</button>
                       </form></li>

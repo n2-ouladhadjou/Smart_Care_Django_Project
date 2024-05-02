@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from loginAndRegistration.models import Doctor, Nurse, Patient
 from django.contrib.auth import logout
-from dashboards.models import Appointment
+from dashboards.models import Appointment, Admin
 from dashboards.forms import AppointmentForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone

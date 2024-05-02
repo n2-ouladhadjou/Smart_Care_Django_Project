@@ -9,10 +9,12 @@ ENV PYTHONUNBUFFERED = 1
 # Set the working directory in docker 
 WORKDIR /smartCareApp
 
-
-# Install the reiquirements
+# Install the requirements
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
+
+# Install django-crispy-forms
+RUN pip install django-crispy-forms
 
 COPY . .
 

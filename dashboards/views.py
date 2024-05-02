@@ -11,6 +11,7 @@ from loginAndRegistration.models import Doctor, Nurse
 from dashboards.forms import AppointmentForm, PrescriptionForm, InvoiceForm
 from dashboards.models import Appointment, Prescription, Invoice
 from django.contrib.auth.decorators import login_required
+from .forms import CustomUserChangeForm
 
 
 

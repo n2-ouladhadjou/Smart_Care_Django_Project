@@ -6,7 +6,7 @@ services:
         # Name of the image to be built
         image: smartcare
 
-        # container name 
+        # container name
         container_name: smartcare_container
 
         # Build the image from the Dockerfile in the current directory
@@ -29,8 +29,7 @@ services:
             - db
 
         # Runtime command
-        entrypoint: ["tail", "-f", "/dev/null"]
-        #entrypoint: [ "./smartcare-entrypoint.sh" ]
+        entrypoint: [ "./smartcare-entrypoint.sh" ]
 
     # db service
     db:
