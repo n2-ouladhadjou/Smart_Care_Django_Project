@@ -16,7 +16,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             if Admin.objects.filter(user=user).exists():
-                return redirect('admin_home')
+                return redirect('admin')
             elif Doctor.objects.filter(user=user).exists():
                 return redirect('doctor_home')
             elif Nurse.objects.filter(user=user).exists():
