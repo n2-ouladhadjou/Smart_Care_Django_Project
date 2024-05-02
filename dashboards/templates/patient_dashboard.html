@@ -22,6 +22,37 @@
         
     </ul>
 
+    <div class="appointments">
+        <h2>Your Appointments</h2>
+        {% for appointment in appointments %}
+        <div class="appointment">
+            <p>Status: {{ appointment.status }}</p>
+            <p>Date and Time: {{ appointment.date_time }}</p>
+            <p>Doctor: {{ appointment.doctor.name }}</p>
+            <p>Nurse: {{ appointment.nurse.name }}</p>
+
+
+
+        </div>
+
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="doctor">Doctor:</label>
+        {{ form.doctor }}
+        <label for="datetime">Date and Time:</label>
+        {{ form.date_time }}
+        <label for="patient_name">Your Name:</label>
+        {{ form.patient_name }}
+        <label for="postcode">Your postcode:</label>
+        {{ form.postcode }}
+        <label for="reason_for_appointment">Reason for Appointment:</label>
+        {{ form.reason_for_appointment }}
+        <button type="submit">Book Appointment</button>
+    </form>
+
+
+
 
 
 </body>

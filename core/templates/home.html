@@ -1,28 +1,43 @@
 {% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome to our website!</h1>
+    <div class="container mt-5">
+        <h1>Welcome to Smart Care Hospital!</h1>
 
-    {% if user.is_authenticated %}
+        <p>We provide healthcare services to our patients with care and compassion. At Smart Care Hospital, we are
+            committed to delivering high-quality medical care to our community.</p>
 
-    <p>User is signed in</p>
-    <p> hello {{ user.username }} </p>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Log Out</button>
-      </form>
-    
-    {% else %}
-    <button onclick="location.href='{% url 'login' %}'">Login</button>
-    <button onclick="location.href='{% url 'register' %}'">Register</button>
-    {% endif %}
-</body>
-{{ redirect_to_login_immediately }}
+        <h2>Make an Appointment</h2>
+        <p>If you want to see a doctor, you can make an appointment here. Our booking system is designed to make it easy
+            for you to schedule a visit with one of our healthcare professionals.</p>
+        <button onclick="location.href='#'" class="btn btn-primary">Make Appointment</button>
+
+        <h2>Services We Offer</h2>
+        <p>Our hospital offers a wide range of medical services, including:</p>
+        <ul>
+            <li>Primary Care</li>
+            <li>Specialty Clinics</li>
+            <li>Surgical Services</li>
+            <li>Emergency Care</li>
+            <li>Diagnostic Imaging</li>
+            <li>Physical Therapy</li>
+            <li>Maternity Services</li>
+            <li>And more...</li>
+        </ul>
+
+        <h2>Our Medical Team</h2>
+        <p>Our team of healthcare professionals is dedicated to providing you with the best possible care. We have a
+            team of experienced doctors, nurses, and specialists who are here to address your healthcare needs.</p>
+
+        <h2>Repeat Prescription</h2>
+        <p>If you need a repeat prescription, you can request it through our online system. Simply log in to your
+            account and submit your request. Our medical team will review your request and approve it if necessary.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions or concerns, feel free to contact us. Our friendly staff is here to assist you.</p>
+        <p>Phone: 123-456-7890</p>
+        <p>Email: info@smartcarehospital.com</p>
+
+    </div>
 {% endblock %}
-
-</html>

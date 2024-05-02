@@ -3,11 +3,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from loginAndRegistration.models import Doctor, Nurse, Patient
-from dashboards.models import Admin
+from django.contrib.auth import logout
+from dashboards.models import Appointment
+from dashboards.forms import AppointmentForm
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 
 def login_view(request):
     if request.method == 'POST':
+
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -15,9 +20,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            if Admin.objects.filter(user=user).exists():
-                return redirect('admin_home')
-            elif Doctor.objects.filter(user=user).exists():
+            if Doctor.objects.filter(user=user).exists():
                 return redirect('doctor_home')
             elif Nurse.objects.filter(user=user).exists():
                 return redirect('nurse_home')
@@ -32,8 +35,6 @@ def login_view(request):
 
 
 def register(request):
-    form = UserCreationForm()
-    # context =
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -44,9 +45,29 @@ def register(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, ("Registration Complete"))
+            messages.success(request, "Registration Complete")
             return redirect('home')
     else:
         form = UserCreationForm()
 
     return render(request, 'registration.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')
+
+
+
+def make_appointment(request):
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.patient = request.user
+            appointment.save()
+            return redirect('patient_home')
+    else:
+        form = AppointmentForm()
+
+    return render(request, 'make_appointment.html', {'form': form})

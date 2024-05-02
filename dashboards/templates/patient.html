@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block title %}Patient Dashboard{% endblock %}
+    <h1>Welcome, {{ user.username }}</h1>
+    <div>
+        <a href="{% url 'book_appointment' %}"><button>Book Appointment</button></a>
+        <a href="{% url 'view_prescriptions' %}"><button>View Prescriptions</button></a>
+    </div>
+    <h2>Upcoming Appointments</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.doctor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+</body>
+</html>

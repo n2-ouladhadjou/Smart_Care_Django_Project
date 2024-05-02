@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Reject Appointment{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Reject Appointment</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'reject_appointment' appointment.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_reason">Reason for Rejection:</label>
+                                <textarea class="form-control" id="id_reason" name="reason" rows="3" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-danger mr-2">Reject</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

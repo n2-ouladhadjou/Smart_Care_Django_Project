@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Patient Home{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Past Appointments</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if past_appointments %}
+                            {% for appointment in past_appointments %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Doctor/Nurse:
+                                            {% if appointment.doctor %}
+                                                {{ appointment.doctor.user.username }}
+                                            {% elif appointment.nurse %}
+                                                {{ appointment.nurse.user.username }}
+                                            {% endif %}
+                                        </h5>
+                                        <p class="card-text">Appointment Date and Time: {{ appointment.appointment_datetime }}</p>
+                                        <p class="card-text">Status: {{ appointment.status }}</p>
+                                        {% if appointment.status == 'Completed' %}
+                                            {% if appointment.prescription %}
+                                                <a href="{% url 'view_prescription' appointment.prescription.id %}" class="btn btn-primary">View Prescription</a>
+                                            {% else %}
+                                                <p>No prescription available.</p>
+                                            {% endif %}
+                                            <form method="post" action="{% url 'repeat_appointment' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="doctor" value="{{ appointment.doctor.id }}">
+                                                <input type="hidden" name="nurse" value="{{ appointment.nurse.id }}">
+                                                <input type="hidden " name="appointment_datetime" value="{{ appointment.appointment_datetime }}">
+                                                <button type="submit" class="btn btn-primary">Repeat Appointment</button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">No past appointments.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Upcoming Appointments</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if upcoming_approved_appointments %}
+                            {% for appointment in upcoming_approved_appointments %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Doctor/Nurse:
+                                            {% if appointment.doctor %}
+                                                {{ appointment.doctor.user.username }}
+                                            {% elif appointment.nurse %}
+                                                {{ appointment.nurse.user.username }}
+                                            {% endif %}</h5>
+                                        <p class="card-text">Appointment Date and Time: {{ appointment.appointment_datetime }}</p>
+                                        <p class="card-text">Status: {{ appointment.status }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">No upcoming appointments.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Appointments Needing Approval</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if pending_appointments %}
+                            {% for appointment in pending_appointments %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Doctor/Nurse:
+                                            {% if appointment.doctor %}
+                                                {{ appointment.doctor.user.username }}
+                                            {% elif appointment.nurse %}
+                                                {{ appointment.nurse.user.username }}
+                                            {% endif %}</h5>
+                                        <p class="card-text">Appointment Date and Time: {{ appointment.appointment_datetime }}</p>
+                                        <p class="card-text">Status: {{ appointment.status }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">No appointments needing approval.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Make an Appointment</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_doctor">Doctor:</label>
+                                <select name="doctor" id="id_doctor" class="form-control">
+                                    <option value="">Select Doctor</option>
+                                    {% for doctor in doctors %}
+                                        <option value="{{ doctor.id }}">{{ doctor.user.username }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_nurse">Nurse:</label>
+                                <select name="nurse" id="id_nurse" class="form-control">
+                                    <option value="">Select Nurse</option>
+                                    {% for nurse in nurses %}
+                                        <option value="{{ nurse.id }}">{{ nurse.user.username }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_appointment_datetime">Appointment Date and Time:</label>
+                                <input type="datetime-local" name="appointment_datetime" id="id_appointment_datetime" class="form-control">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Make Appointment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

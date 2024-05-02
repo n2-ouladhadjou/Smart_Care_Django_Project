@@ -6,7 +6,7 @@ from dashboards.models import Prescription
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ['patient', 'doctor', 'nurse', 'appointment_datetime', 'status']
+        fields = ['doctor', 'nurse', 'patient', 'appointment_datetime', 'status']
 
 
 class PrescriptionForm(forms.ModelForm):

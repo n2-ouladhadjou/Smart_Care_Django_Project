@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Update Appointment{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Update Appointment</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_doctor">Doctor:</label>
+                                <select name="doctor" id="id_doctor" class="form-control">
+                                    <option value="{{ appointment.doctor.id }}"
+                                            selected>{{ appointment.doctor }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_appointment_datetime">Appointment Date and Time:</label>
+                                <input type="datetime-local" name="appointment_datetime" id="id_appointment_datetime"
+                                       class="form-control"
+                                       value="{{ appointment.appointment_datetime|date:'Y-m-d' }}T{{ appointment.appointment_datetime|time:'H:i' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="id_status">Status:</label>
+                                <select name="status" id="id_status" class="form-control">
+                                    <option value="Approved"
+                                            {% if appointment.status == 'Approved' %}selected{% endif %}>Approved
+                                    </option>
+                                    <option value="Rejected"
+                                            {% if appointment.status == 'Rejected' %}selected{% endif %}>Rejected
+                                    </option>
+                                    <option value="Completed"
+                                            {% if appointment.status == 'Completed' %}selected{% endif %}>Completed
+                                    </option>
+                                </select>
+                            </div>
+                            {% if appointment.status == 'Rejected' %}
+                                <div class="form-group">
+                                    <label for="id_rejection_reason">Reason for Rejection:</label>
+                                    <textarea class="form-control" name="rejection_reason" id="id_rejection_reason"
+                                              rows="3">{{ appointment.rejection_reason }}</textarea>
+                                </div>
+                            {% endif %}
+                            <div class="form-group text-center mt-4">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{% url 'doctor_home' %}" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

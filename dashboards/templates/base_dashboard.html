@@ -98,6 +98,7 @@
         {% if user.groups.all %}
             {% for group in user.groups.all %}
                 {% if group.name == 'Admin' %}
+                
                     <div class="navbar navbar-default">
                         <a href="/manage-users">Manage Users</a>
                         <a href="/manage-appointments">Manage Appointments</a>
@@ -106,20 +107,14 @@
                     </div>
                 {% endif %}
                 {% if group.name == 'Doctor' %}
+
+
+                
                     <div class="navbar2">
                         <a href="/manage-appointments">Manage Appointments</a>
                         <a href="/manage-prescriptions">Manage Prescriptions</a>
                     </div>
                 {% endif %}
-                {% if group.name == 'Patient' %}
-                    <div class="navbar2">
-                        <a href="/patient-dashboard">Patient Home</a>
-                        <a href="/book-appointment">Book Appointment</a>
-                        <a href="/view-prescriptions">View Prescriptions</a>
-                    </div>
-                {% endif %}
-
-
                 
             {% endfor %}
         {% else %}

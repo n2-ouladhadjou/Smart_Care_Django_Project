@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Application definition
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'loginAndRegistration',
     'core',
     'dashboards',
+    'crispy_forms'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -85,10 +87,10 @@ WSGI_APPLICATION = 'samrtCare.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smartcare',
+        'NAME': 'smartcare2',
         'USER': 'root',
-        'PASSWORD': 'smartcare',
-        'HOST': 'db',
+        'PASSWORD': 'password@123@4',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }

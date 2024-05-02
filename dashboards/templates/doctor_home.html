@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Home</title>
+</head>
+<body>
+    <h1>Past Appointments</h1>
+    <ul>
+    {% for appointment in past_appointments %}
+        <li>{{ appointment.date }} - {{ appointment.patient }}</li>
+    {% empty %}
+        <li>No past appointments</li>
+    {% endfor %}
+    </ul>
+
+    <h1>Upcoming Appointments</h1>
+    <ul>
+    {% for appointment in upcoming_appointments %}
+        <li>{{ appointment.date }} - {{ appointment.patient }}</li>
+    {% empty %}
+        <li>No upcoming appointments</li>
+    {% endfor %}
+    </ul>
+
+    <h1>Pending Appointments</h1>
+    <ul>
+    {% for appointment in pending_appointments %}
+        <li>{{ appointment.date }} - {{ appointment.patient }}</li>
+    {% empty %}
+        <li>No pending appointments</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
