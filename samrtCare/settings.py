@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'samrtCare.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smartcare2',
+        'NAME': 'smartcare',
         'USER': 'root',
-        'PASSWORD': 'password@123@4',
-        'HOST': 'localhost',
+        'PASSWORD': 'smartcare',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }
