@@ -18,7 +18,7 @@ def login_view(request):
             if Admin.objects.filter(user=user).exists():
                 return redirect('admin')
             elif Doctor.objects.filter(user=user).exists():
-                return redirect('doctor_home')
+                return render(request, 'doctor.html') # change redirect
             elif Nurse.objects.filter(user=user).exists():
                 messages.success(request, "Login Successful to Nurse Dashboard") # display message 
                 return redirect('nurse_home')
