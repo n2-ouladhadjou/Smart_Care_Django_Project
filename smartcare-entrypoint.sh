@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Waiting for Postgres Database Service to start..."
+echo "Waiting for MySql Database Service to start..."
 # Control startup and shutdown order in Compose
 # ...https://docs.docker.com/compose/startup-order/
 # Script from ./wait-for is from:

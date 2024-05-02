@@ -1,23 +1,16 @@
 # Dockerfile :
 # ----------
-# Python Image
-FROM python:3.10-slim
+# Official Python image as the base image
+FROM python:3.9
 
-# Install the files/compilers/lib to run mysql
-RUN apt-get update && apt-get install -y \
-    gcc \
-    musl-dev \
-    libmariadb-dev \
-    pkg-config
+# Sent output to the terminal
+ENV PYTHONUNBUFFERED = 1
 
-# Create project Folder (Volume)
+# Set the working directory in docker 
 WORKDIR /smartCareApp
 
-# Install the reiquirements
-COPY  requirements.txt ./
-RUN pip install -r requirements.txt
-
+# Copy the project in the container
 COPY . .
 
-# Expose Port
-EXPOSE 8000
+# Install the Python requirements
+RUN pip install -r requirements.txt

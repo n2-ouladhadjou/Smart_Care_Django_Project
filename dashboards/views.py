@@ -1,16 +1,33 @@
-from django.contrib.auth.forms import UserChangeForm
-from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
-from datetime import datetime
+from django.contrib.auth.forms      import UserChangeForm
+from django.contrib.auth.mixins     import UserPassesTestMixin
+from django.contrib.auth.models     import User
+from django.http                    import HttpResponseRedirect
+from django.urls                    import reverse
+from django.views                   import View
+from django.shortcuts               import render, get_object_or_404, redirect
+from django.utils                   import timezone
+from datetime                       import datetime
+from dashboards.forms               import AppointmentForm, PrescriptionForm, InvoiceForm, CustomUserChangeForm
+from dashboards.models              import Appointment, Prescription, Invoice
+from django.contrib.auth.decorators import login_required
 
-from dashboards.forms import AppointmentForm, PrescriptionForm, InvoiceForm, CustomUserChangeForm
-from dashboards.models import Appointment, Prescription, Invoice
+# Function to display the oppontments in nurse dashboard
+@login_required
+def nurse_home(request):
+    return render(request, 'nurseDashboard.html',  {'appointments' : Appointment.objects.all()})
 
+# Function to update the oppontments status in nurse dashboard and save it in database
+@login_required
+def update_appointment_status(request, pk):
+    appointment = get_object_or_404(Appointment, pk=pk)
+    if request.method == 'POST':
+        if request.POST.get('status') == 'completed':
+            appointment.status = 'Completed'
+            appointment.save()
+        elif request.POST.get('status') == 'canceled':
+            appointment.status = 'Canceled'
+            appointment.save()
+    return redirect('nurse_home')
 
 class AdminView(UserPassesTestMixin, View):
     def test_func(self):

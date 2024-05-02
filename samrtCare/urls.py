@@ -21,18 +21,14 @@ from dashboards.views import ManageUsersView, ManageAppointmentsView, ManagePres
     AdminView, view_prescriptions, book_appointment, patient_dashboard, delete_user, edit_appointment, delete_appointment, edit_prescription, delete_prescription
 from dashboards import views as dashboard_views  # import dashboards views
 
-
 from loginAndRegistration import views as auth_views
 from django.urls import include, path
-
-
 
 urlpatterns = [
     path('', core_views.home, name='home'),
     path('admin/', admin.site.urls),
     path('login/', auth_views.login_view, name='login'),
     path('register/', auth_views.register, name='register'),
-    path("/", include("django.contrib.auth.urls")),
     path('manage-users/', ManageUsersView.as_view(), name='manage_users'),
     path('edit-user/<int:user_id>/', dashboard_views.edit_user, name='edit_user'),  # use dashboards views
     path('delete-user/<int:user_id>/', delete_user, name='delete_user'),
@@ -49,4 +45,9 @@ urlpatterns = [
     path('patient/', patient_dashboard, name='patient_dashboard'),
     path('prescriptions/', view_prescriptions, name='view_prescriptions'),
     path('book_appointment/', book_appointment, name='book_appointment'),
+
+    # NOH
+    path('', include("django.contrib.auth.urls")), # Authenticate link 
+    path('nurse/', dashboard_views.nurse_home, name='nurse_home'), # Nurse page link
+    path('appointments/<int:pk>/update_status/', dashboard_views.update_appointment_status, name='update_appointment_status'), # Update the status of appontement
 ]
