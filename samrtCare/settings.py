@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Application definition
 INSTALLED_APPS = [
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'loginAndRegistration',
     'core',
     'dashboards',
+    'crispy_forms'
 ]
 
 AUTHENTICATION_BACKENDS = [

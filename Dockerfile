@@ -9,8 +9,14 @@ ENV PYTHONUNBUFFERED = 1
 # Set the working directory in docker 
 WORKDIR /smartCareApp
 
-# Copy the project in the container
+
+# Install the reiquirements
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
 COPY . .
 
-# Install the Python requirements
-RUN pip install -r requirements.txt
+# Expose Port
+EXPOSE 8000
+
+ENTRYPOINT ["./smartcare-entrypoint.sh"]

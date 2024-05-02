@@ -18,36 +18,56 @@ from django.contrib import admin
 from django.urls import path
 from core import views as core_views
 from dashboards.views import ManageUsersView, ManageAppointmentsView, ManagePrescriptionsView, ManageInvoicesView, \
-    AdminView, view_prescriptions, book_appointment, patient_dashboard, delete_user, edit_appointment, delete_appointment, edit_prescription, delete_prescription
+    AdminView, view_prescriptions, book_appointment, patient_dashboard, delete_user, update_appointment, \
+    delete_appointment, edit_prescription, delete_prescription
 from dashboards import views as dashboard_views  # import dashboards views
 
 from loginAndRegistration import views as auth_views
 from django.urls import include, path
 
 urlpatterns = [
+    # path("/", include("django.contrib.auth.urls")),
     path('', core_views.home, name='home'),
     path('admin/', admin.site.urls),
     path('login/', auth_views.login_view, name='login'),
     path('register/', auth_views.register, name='register'),
+    path('user_logout/', auth_views.user_logout, name='user_logout'),
     path('manage-users/', ManageUsersView.as_view(), name='manage_users'),
     path('edit-user/<int:user_id>/', dashboard_views.edit_user, name='edit_user'),  # use dashboards views
     path('delete-user/<int:user_id>/', delete_user, name='delete_user'),
-    path('edit-appointment/<int:appointment_id>/', edit_appointment, name='edit_appointment'),
-    path('delete-appointment/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
-    path('manage-appointments/', ManageAppointmentsView.as_view(), name='manage_appointments'),
     path('manage-prescriptions/', ManagePrescriptionsView.as_view(), name='manage_prescriptions'),
     path('manage-invoices/', ManageInvoicesView.as_view(), name='manage_invoices'),
     path('user-admin/', AdminView.as_view(), name='admin'),
-    path('edit-prescription/<int:prescription_id>/', edit_prescription, name='edit_prescription'),
-    path('delete-prescription/<int:prescription_id>/', delete_prescription, name='delete_prescription'),
     path('edit-invoice/<int:invoice_id>/', dashboard_views.edit_invoice, name='edit_invoice'),
     path('delete-invoice/<int:invoice_id>/', dashboard_views.delete_invoice, name='delete_invoice'),
-    path('patient/', patient_dashboard, name='patient_dashboard'),
-    path('prescriptions/', view_prescriptions, name='view_prescriptions'),
+
+    # Prescription
+    path('create_prescription/<int:appointment_id>/', core_views.create_prescription, name='create_prescription'),
+    path('update_prescription/<int:prescription_id>/', core_views.update_prescription, name='update_prescription'),
+    path('view_prescription/<int:prescription_id>/', core_views.view_prescription, name='view_prescription'),
+
+    # Patient
     path('book_appointment/', book_appointment, name='book_appointment'),
 
-    # NOH
-    path('', include("django.contrib.auth.urls")), # Authenticate link 
-    path('nurse/', dashboard_views.nurse_home, name='nurse_home'), # Nurse page link
-    path('appointments/<int:pk>/update_status/', dashboard_views.update_appointment_status, name='update_appointment_status'), # Update the status of appontement
+    path('patient_home/', core_views.patient_home, name='patient_home'),
+    path('delete_appointment/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
+    path('update_appointment/<int:appointment_id>/', update_appointment, name='update_appointment'),
+    path('repeat-appointment/', core_views.repeat_appointment, name='repeat_appointment'),
+
+    # Doctor
+    path('doctor_home/', core_views.doctor_home, name='doctor_home'),
+
+    path('approve_appointment/<int:appointment_id>/', core_views.approve_doctor_appointment,
+         name='approve_appointment'),
+    path('update_doctor_appointment/<int:appointment_id>/', core_views.update_doctor_appointment,
+         name='update_doctor_appointment'),
+    path('reject_appointment/<int:appointment_id>/', core_views.reject_doctor_appointment, name='reject_appointment'),
+
+    # Nurse
+    path('approve_nurse_appointment/<int:appointment_id>/', core_views.approve_doctor_appointment,
+         name='approve_appointment'),
+    path('update_nurse_appointment/<int:appointment_id>/', core_views.update_doctor_appointment,
+         name='update_doctor_appointment'),
+    path('reject_nurse_appointment/<int:appointment_id>/', core_views.reject_doctor_appointment,
+         name='reject_appointment'),
 ]

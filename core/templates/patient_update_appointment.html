@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Update Appointment{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Update Appointment</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_doctor">Doctor:</label>
+                                <select name="doctor" id="id_doctor" class="form-control">
+                                    <option value="{{ appointment.doctor.id }}"
+                                            selected>{{ appointment.doctor }}</option>
+                                    {% for doctor in doctors %}
+                                        {% if doctor.id != appointment.doctor.id %}
+                                            <option value="{{ doctor.id }}">{{ doctor }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_appointment_datetime">Appointment Date and Time:</label>
+                                <input type="datetime-local" name="appointment_datetime" id="id_appointment_datetime"
+                                       value="{{ appointment.appointment_datetime|date:'Y-m-d\TH:i' }}"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group text-center mt-4">
+                                <button type="submit" class="btn btn-primary">Update Appointment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

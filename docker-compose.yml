@@ -29,7 +29,8 @@ services:
             - db
 
         # Runtime command
-        entrypoint: [ "./smartcare-entrypoint.sh" ]
+        entrypoint: ["tail", "-f", "/dev/null"]
+        #entrypoint: [ "./smartcare-entrypoint.sh" ]
 
     # db service
     db:

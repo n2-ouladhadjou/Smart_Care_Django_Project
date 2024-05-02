@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Make Appointment{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Make Appointment</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_doctor">Doctor:</label>
+                            <select name="doctor" id="id_doctor" class="form-control">
+                                <option value="">Select Doctor</option>
+                                <!-- Add options for doctors here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_nurse">Nurse:</label>
+                            <select name="nurse" id="id_nurse" class="form-control">
+                                <option value="">Select Nurse</option>
+                                <!-- Add options for nurses here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_appointment_datetime">Appointment Date and Time:</label>
+                            <input type="datetime-local" name="appointment_datetime" id="id_appointment_datetime" class="form-control">
+                        </div>
+                        <div class="form-group text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Make Appointment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

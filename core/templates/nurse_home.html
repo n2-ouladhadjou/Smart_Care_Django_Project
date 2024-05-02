@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Nurse Home{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Past Completed Appointments</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if past_completed_appointments %}
+                            {% for appointment in past_completed_appointments %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Patient: {{ appointment.patient }}</h5>
+                                        <p class="card-text">Appointment Date and
+                                            Time: {{ appointment.appointment_datetime }}</p>
+                                        <p class="card-text">Status: {{ appointment.status }}</p>
+                                        <a href="{% url 'view_prescription' appointment.id %}" class="btn btn-primary">View
+                                            Prescription</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">No past completed appointments.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Upcoming Appointments</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if upcoming_appointments %}
+                            {% for appointment in upcoming_appointments %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Patient: {{ appointment.patient }}</h5>
+                                        <p class="card-text">Appointment Date and
+                                            Time: {{ appointment.appointment_datetime }}</p>
+                                        <p class="card-text">Status: {{ appointment.status }}</p>
+                                        <a href="{% url 'update_appointment' appointment.id %}" class="btn btn-primary">Update
+                                            Appointment</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">No upcoming appointments.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Appointments Needing Approval</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if pending_appointments %}
+                            {% for appointment in pending_appointments %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Patient: {{ appointment.patient }}</h5>
+                                        <p class="card-text">Appointment Date and
+                                            Time: {{ appointment.appointment_datetime }}</p>
+                                        <p class="card-text">Status: {{ appointment.status }}</p>
+                                        <form method="post" action="{% url 'approve_appointment' appointment.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" name="action" value="approve" class="btn btn-success">
+                                                Approve
+                                            </button>
+                                        </form>
+                                        <form method="post" action="{% url 'approve_appointment' appointment.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" name="action" value="approve" class="btn btn-danger">
+                                                Reject
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">No appointments needing approval.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

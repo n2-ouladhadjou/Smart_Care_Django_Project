@@ -4,8 +4,8 @@ from django.utils.timezone       import now
 from loginAndRegistration.models import Doctor, Nurse, Patient
 
 class Appointment(models.Model):
-    doctor  = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    nurse   = models.ForeignKey(Nurse, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True, blank=True)
+    nurse = models.ForeignKey(Nurse, on_delete=models.CASCADE, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     appointment_datetime = models.DateTimeField(default = now, verbose_name = 'oppontement time')
     # Status can be Pending or Completed or canceled
@@ -18,6 +18,7 @@ class Appointment(models.Model):
         return self.patient.user.get_full_name()
 
 class Prescription(models.Model):
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     issue_datetime = models.DateTimeField()
